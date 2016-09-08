@@ -8,9 +8,9 @@
     $app->register(new Silex\Provider\TwigServiceProvider(), array('twig.path' => __DIR__.'/../views'));
 
     session_start();
+    $_SESSION['words'] = array('SESSION', 'POST', 'APP', 'GET', 'REQUIRE', 'SILEX', 'TWIG', 'COMPOSER', 'SERVER', 'CASH', 'ARROW', 'EQUALS');
     if (empty($_SESSION['game'])) {
-      $_SESSION['words'] = array('test');
-      $_SESSION['game'] = new Hangman('test');
+      $_SESSION['game'] = new Hangman();
     }
 
     $app->get('/', function() use ($app) {
@@ -20,13 +20,14 @@
     $app->post('/guess_letter', function() use ($app){
         $game = $_SESSION['game'];
         $letter = $_POST['letter'];
-        $game->guessLetter($letter);
-
+        if ($letter) {
+            $game->guessLetter($letter);
+        }
         return $app->redirect('/');
     });
 
     $app->get('/reset', function() use ($app) {
-        $_SESSION['game'] = new Hangman('test');
+        $_SESSION['game'] = new Hangman();
         return $app->redirect('/');
     });
 

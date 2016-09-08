@@ -5,18 +5,24 @@
   </head>
   <body>
     <div class="container">
-      <h1>Play hangman!</h1>
-      <form method="post" action='/guess_letter'>
-        <input type="text" name="letter" placeholder="input your guess" pattern="[A-Za-z]{1}" autofocus>
-        <button type="submit">Submit Guess</button>
-      </form>
-      <p>Word: {{ game.getDisplayString }}</p>
-      <p>Incorrect guesses: {{ game.getGuessedString }}</p>
-      <p>Correct guesses: {{ game.getCorrectLetters }}</p>
-      <p>Victory: {{ game.getVictory }}</p>
-      <form action="/reset">
-        <button type="submit">Reset Game</button>
-      </form>
+      <h1 class="page-header">Play hangman!</h1>
+      <div class="row">
+        <div class="col-xs-6">
+          <br><br><br><br>
+          <form method="post" action='/guess_letter'>
+            <input type="text" name="letter" placeholder="input your guess" pattern="[A-Za-z]{1}" autofocus>
+            <button type="submit">Submit Guess</button>
+          </form>
+          <h2>Word: {{ game.getDisplayString }}</h2>
+          <h2>Incorrect guesses: {{ game.getWrongLetters }}</h2>
+        </div>
+        <div class="col-xs-6">
+          <img src={{ game.getImage }}>
+          <form action="/reset">
+            <button type="submit">Reset Game</button>
+          </form>
+        </div>
+      </div>
     </div>
   </body>
 </html>
